@@ -9,11 +9,11 @@ int power_rec(int n,int m){
     return power_rec(n,m-1) * n;
 }
 
-int power_loop(int n,int m){
+int power_rec_2(int n,int m){
     if(m==0)
         return 1;
     if(m%2==0)
-        return power_loop(n*m,m/2);
+        return power_rec_2(n*m,m/2);
 }
 
 
@@ -22,6 +22,6 @@ int main(){
     cout<<"Enter two numbers (N^M): ";
     cin>>n>>m;
     cout<<power_rec(n,m)<<endl;
-    // power_loop(n,m);
+    cout<<power_rec_2(n,m)<<endl;
     return 0;
 }
