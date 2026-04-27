@@ -2,25 +2,26 @@
 
 using namespace std;
 
+template <class T>
+
 class Array
 {
-
-    private:
-    int *A;
+private:
+    T *A;
     int size;
     int length;
 public:
 
-    Array(int *a, int s, int l);
+    Array(T *a, int s, int l);
     Array(){
         size = 10;
         length=0;
-        A = new int[size]; 
+        A = new T[size]; 
     }
     Array(int sz){ 
         size = sz;
         length=0;
-        A = new int[size];  
+        A = new T[size];  
     }
     ~Array(){ delete []A ;}
 
@@ -31,18 +32,19 @@ public:
         }
         printf("\n");
     }
-    void Append(int x);
-    void Insert(int x,int pos);   
+    void Append(T x);
+    void Insert(T x,int pos);   
     void Reverse(); 
     void Reverse2(); 
     void leftShift();
     void rightShift();
-    void insertion_in_sorted_array(int x);
+    void insertion_in_sorted_array(T x);
     bool isSorted();
     Array merge(Array arr1, Array arr2);
 };
 
-void Array::Append(int x){
+template <class T>
+void Array<T>::Append(T x){
     
     if(length<size)
     {
@@ -56,7 +58,8 @@ void Array::Append(int x){
 
 }
 
-void Array::Insert(int x,int pos){
+template <class T>
+void Array<T>::Insert(T x,int pos){
     int i;
     if(pos>=0 && length>=pos)
     {
@@ -68,9 +71,10 @@ void Array::Insert(int x,int pos){
     }
 }
 
-void Array::Reverse(){
+template <class T>
+void Array<T>::Reverse(){
     int *B;
-    B = new int[length];
+    B = new T[length];
     int i,j;
     for(i=length-1,j=0;i>=0;i--,j++){
         B[j]=A[i];
@@ -79,7 +83,8 @@ void Array::Reverse(){
         A[i] = B[i];
 }
 
-void Array::Reverse2(){
+template <class T>
+void Array<T>::Reverse2(){
 
     for(int i=0,j=length-1;i<j;i++,j--){
         int t = A[i];
@@ -88,21 +93,24 @@ void Array::Reverse2(){
     }
 }
 
-void Array::leftShift(){
+template <class T>
+void Array<T>::leftShift(){
     int temp = A[0];
     for(int i=0;i<length-1;i++)
         A[i] = A[i+1];
     A[length-1]=temp;
 }
 
-void Array::rightShift(){
+template <class T>
+void Array<T>::rightShift(){
     int temp = A[length-1];
     for(int i=length-1;i>0;i--)
         A[i] = A[i-1];
     A[0]=temp;
 }
 
-void Array::insertion_in_sorted_array(int x){
+template <class T>
+void Array<T>::insertion_in_sorted_array(T x){
     if(length==size)
         return;
     int i = 0;
@@ -113,7 +121,8 @@ void Array::insertion_in_sorted_array(int x){
     length++; 
 }
 
-bool Array::isSorted(){
+template <class T>
+bool Array<T>::isSorted(){
     for (int i = 0; i < length-1; i++)
     {
         if(A[i]>A[i+1])
@@ -122,12 +131,13 @@ bool Array::isSorted(){
     return true;
 }
 
-Array Array::merge(Array arr1, Array arr2){
+template <class T>
+Array<T> Array<T>::merge(Array arr1, Array arr2){
     Array arr;
     int i,j,k;
     i=j=k=0;
     arr.size = arr1.size+arr2.size;
-    arr.A = new int[arr.size];
+    arr.A = new T[arr.size];
     while(i<arr1.length && j<arr2.length){
         if(arr1.A[i]<arr2.A[j])
             arr.A[k++] = arr1.A[i++];
@@ -144,7 +154,7 @@ Array Array::merge(Array arr1, Array arr2){
 
 int main(int argc, char const *argv[])
 {
-    Array arr(20);
+    Array<int> arr(20);
     arr.Append(1);arr.Append(2);
     arr.Append(3);arr.Append(4);
     arr.Append(5);arr.Append(6);
@@ -160,7 +170,7 @@ int main(int argc, char const *argv[])
     arr.Display();
     arr.rightShift();
     arr.Display();
-    Array arr2;
+    Array<float> arr2;
     arr2.Append(2);
     arr2.Append(3);
     arr2.Append(5);
